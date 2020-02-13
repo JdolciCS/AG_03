@@ -88,7 +88,7 @@ project_start/
 > En este punto ya podemos probar el proyecto con un **servidor de desarrollo** proporcionado por **Django**, para eso usamos en siguiente comando: **`python manage.py runserver`**.
 ## 1.6 Creacion de una aplicación
 > ### Aplicacion vs Proyecto
- Un proyecto puede contener una o mas aplicaciones, las aplicaciones son pequeñas partes del software que esta diseñada para un uso especifico.
+> Un proyecto puede contener una o mas aplicaciones, las aplicaciones son pequeñas partes del software que esta diseñada para un uso especifico.
 
 Crearemos una aplicacion que contendra nuestros directorios de **`React`**, la llamaremos _`frontend`_, usaremos el siguiente comando:
 ``` bash
