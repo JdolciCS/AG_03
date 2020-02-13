@@ -1,18 +1,19 @@
 Este proyecto esta realizado con **React** + **GrapQL** + **Django**.
 A continuacion se presenta un manual para configurar tu entorno de desarrollo desde cero.
 >_**Para gestionar los paquetes de Python, en este proyecto usamos [Anaconda](https://www.anaconda.com/).**_
+_**Para poder instalar React, en este proyecto usamos [Nodejs](https://nodejs.org/es/).**_
+_**Para gestionar los paquetes de Nodejs, en este proyecto usamos [npm](https://www.npmjs.com/).**_
 
 # 1. Configuracion directorio `Django`
 ## 1.1 Entorno virtual
-Lo primero que haremos es crear un entorno virtual en **`Anaconda`**, para asi poder instalar nuestros paquetes de forma local, y no global en nuestra PC.
-Usamos el siguiente comando:
+Lo primero que haremos es crear un entorno virtual utilizando **`Anaconda`**, en este entonrno instalaremos nuestros paquetes de forma local, y no de manera global en nuestra PC.
+> A nuestro entorno lo llamaremos _`djangoenv`_, sientete libre de cambiarlo por el nombre que quieras.
+
+Ejecutamos el siguiente comando:
 ``` sh
 conda create --name djangoenv python = 3.8
 ```
-> La palabra _`djangoenv`_ es el nombre que tendrá nuestro entorno, sientete libre de usar el nombre que quieras.
-
-Para empezar a trabajar sobre el nuevo entorno, tenemos que activarlo, lo hacemos con el siguiente comando:
-
+Con el siguiente comando activamos nuestro entorno para trabajar sobre él:
 ``` bash
 conda activate djangoenv
 ```
@@ -26,20 +27,17 @@ Dentro de nuestro nuevo entorno virtual, instalamos _`django`_ usando el siguien
 conda install -c conda-forge django
 ```
 ## 1.3 Directorio de trabajo
-A diferencia de otros frameworks como Laravel, el directorio de nuestro proyecto Django no necesita estár en la carpeta `www/` de nuestro servidor **Apache**, puede crear un proyecto **Django** en el directorio que quiera, con el comando `cd` podemos navegar al directorio deseado:
+A diferencia de otros frameworks como Laravel, el directorio de nuestro proyecto Django no necesita estár en la carpeta `www/` de nuestro servidor **Apache**, puede crear un proyecto **Django** en el directorio que quiera, con el comando `cd` navegamos al directorio elegido:
 ``` bash
 cd Documentos/www/
 ```
-Creamos y accedemos a la carpeta  que va a contener nuestro proyecto:
+Creamos y accedemos a la carpeta  que va a contener todo nuestro proyecto:
 ``` bash
 mkdir projectRGD
 cd projectRGD/
 ```
-En este punto ya tenemos la carpeta que almacenara nuestro proyecto entero y accedimos a ella.
-
 ## 1.4 Comando `git init`
-
-En la carpeta actual escribiremos el siguiente comando que nos permitira hacer un control de versiones de nuestro proyecto:
+En la carpeta actual escribiremos el siguiente comando, el cual nos permitira hacer un control de versiones en **`git`** de nuestro proyecto:
 ``` sh
 git init
 ```
@@ -49,13 +47,12 @@ projectRGD/
 +	/* .gitignore
 +	/* readme.md
 ```
-## 1.5 Creacion del proyecto django
-
-Con el siguiente comando crearemos un proyecto django:
+## 1.5 Creacion del proyecto **`Django`**
+Con el siguiente comando creamos un proyecto **`django`** al cual llamaremos _`project_start`_, sientete libre de llamarlo de otra forma:
 ``` bash
 django-admin startproject project_start
 ```
-Esto crea una nueva carpeta _`project_start`_ con varios subdirectorios y archivos:
+Esto crea en el directorio una nueva carpeta llamada _`project_start`_ que contiene varios subcarpetas y archivos, se vee asi:
 ``` diff
 projectRGD/
 +	project_start/
@@ -69,13 +66,15 @@ projectRGD/
 	/* .gitignore
 	/* readme.md
 ```
- a la cual accedemos usando:
+Podra notar que hay dos carpetas llamadas _`project_start`_, la carpeta padre contendrá todas las aplicaciones de nuestro proyecto, la carpeta hijo contiene archivos de configuracion general de nuestro proyecto, si desea puede modificar el nombre de la carpeta padre, pero no modifique el nombre de la carpeta hijo, eso generaria errores.
+
+ Con el comando _`cd`_ accedemos a la carpeta _`project_start`_ padre:
 ``` bash
 cd project_start
 ```
 > Recuerda que `project_start` es solo el nombre del proyecto, sientete libre de elegir el que quieras.
 
-Ahora tenemos el siguiente contenido en el directorio actual:
+Ahora vemos el siguiente contenido en el directorio actual:
 ``` diff
 project_start/
 	project_start/
@@ -86,10 +85,10 @@ project_start/
 		/* wsgi.py
 	/* manage.py
 ```
-> En este punto ya podemos probar el proyecto con un servidor de desarrollo proporcionado por django, para eso usamos en siguiente comando: **`python manage.py runserver`**.
+> En este punto ya podemos probar el proyecto con un **servidor de desarrollo** proporcionado por **Django**, para eso usamos en siguiente comando: **`python manage.py runserver`**.
 ## 1.6 Creacion de una aplicación
 > ### Aplicacion vs Proyecto
->> Un proyecto puede contener una o mas aplicaciones, las aplicaciones son pequeñas partes del software que esta diseñada para un uso especifico.
+ Un proyecto puede contener una o mas aplicaciones, las aplicaciones son pequeñas partes del software que esta diseñada para un uso especifico.
 
 Crearemos una aplicacion que contendra nuestros directorios de **`React`**, la llamaremos _`frontend`_, usaremos el siguiente comando:
 ``` bash
