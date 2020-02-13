@@ -116,3 +116,128 @@ project_start/
 	/* manage.py
 ```
 # 2. Configuracion directorio `React`
+## 2.1 Iniciando
+Accedemos a la carpeta _`frontend`_, que es el directorio donde trabajaremos con **`React`**:
+``` bash
+cd frontend/
+```
+Iniciamos el proyecto con el siguiente comando:
+``` bash
+npm init
+```
+Manualmente creamos un archivo _`.gitignore`_.
+Luego creamos las siguentes carpetas:
+``` bash
+mkdir templates/
+mkdir templates/frontend/
+mkdir static/
+mkdir static/frontend/
+mkdir src/
+```
+>La carpeta _`template/frontend/`_ es la carpeta predeterminada de **`Django`** para los templates, y es donde ubicaremos nuestro _`index.html`_ que usara nuestra aplicacion **`React`**. La carpeta _`static/frontend/`_ es la carpeta predeterminada de **`Django`** para los archivos estaticos(imagenes, scripts, hojas de estilo). La carpeta _`src/`_ contendra nuestro codigo **`.jsx`**.
+
+Creamos un archivo **`.html`** en _`template/frontend/`_ y le agregamos el siguiente codigo:
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>React Starter</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="../dist/bundle.js"></script>
+</body>
+</html>
+```
+Puedes nombrer tu script como quieras, en este tutorial usaremos _`bundle`_.
+
+## 2.2 Babel
+En el terminal ejecuta el siguiente codigo:
+``` bash
+npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-react
+```
+Ahora cree un archivo llamado _`babel.config.json`_.
+Aqui le decimos a **`Babel`** que vamos a usar preajustes **`env`** y **`react`**. Dentro del archivo escribimos: 
+``` json
+{
+  "presets": ["@babel/env", "@babel/preset-react"]
+}
+```
+## 2.3 Webpack
+En el terminal ejecuta el siguiente codigo:
+``` bash
+npm install --save-dev webpack webpack-cli webpack-dev-server style-loader css-loader babel-loader
+```
+Cree un nuevo archivo llamado _`webpack.config.js`_. Este archivo exporta un objeto con la configuracion de webpack. En al archivo escribimos lo siguiente:
+``` js
+const path = require("path");
+const webpack = require("webpack");
+
+module.exports = {
+  entry: "./src/index.js",
+  mode: "development",
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel-loader",
+        options: { presets: ["@babel/env"] }
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      }
+    ]
+  },
+  resolve: { extensions: ["*", ".js", ".jsx"] },
+  output: {
+    path: path.resolve(__dirname, "dist/"),
+    publicPath: "/dist/",
+    filename: "bundle.js"
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "public/"),
+    port: 3000,
+    publicPath: "http://localhost:3000/dist/",
+    hotOnly: true
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()]
+};
+```
+## 2.4 React
+En el terminal ejecuta el siguiente codigo:
+``` bash
+npm install --save react react-dom
+```
+Cree un archivo index.js en la carpeta src y escriba el siguiente codigo:
+
+``` js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App.js";
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
