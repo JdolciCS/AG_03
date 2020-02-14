@@ -1,8 +1,8 @@
 Este proyecto esta realizado con **React** + **GrapQL** + **Django**.
 A continuacion se presenta un manual para configurar tu entorno de desarrollo desde cero.
 >_**Para gestionar los paquetes de Python, en este proyecto usamos [Anaconda](https://www.anaconda.com/).**_
-_**Para poder instalar React, en este proyecto usamos [Nodejs](https://nodejs.org/es/).**_
-_**Para gestionar los paquetes de Nodejs, en este proyecto usamos [npm](https://www.npmjs.com/).**_
+>_**Para poder instalar React, en este proyecto usamos [Nodejs](https://nodejs.org/es/).**_
+>_**Para gestionar los paquetes de Nodejs, en este proyecto usamos [npm](https://www.npmjs.com/).**_
 
 # 1. Configuracion directorio `Django`
 ## 1.1 Entorno virtual
@@ -90,11 +90,11 @@ project_start/
 > ### Aplicacion vs Proyecto
 > Un proyecto puede contener una o mas aplicaciones, las aplicaciones son pequeñas partes del software que esta diseñada para un uso especifico.
 
-Crearemos una aplicacion que contendra nuestros directorios de **`React`**, la llamaremos _`frontend`_, usaremos el siguiente comando:
+Crearemos una aplicacion en **Django** que contendra nuestra aplicacion **`React`**, la llamaremos _`frontend`_, usaremos el siguiente comando:
 ``` bash
 python manage.py startapp frontend
 ```
-Este comando creo los siguientes directorios y archivos:
+Este comando creó los siguientes directorios y archivos:
 ``` diff
 project_start/
 +	frontend/
@@ -114,6 +114,66 @@ project_start/
 		/* wsgi.py
 	/* manage.py
 ```
+## 1.7 Configuración básica de la aplicación _`frontend`_.
+Antes de continuar, necesitamos registrar nuestra aplicacion, para eso agregamos **`'frontend.apps.FrontendConfig'`** en el array _`INSTALLED_APPS`_ que se encuentra en _`project_start/settings.py`_:
+``` Python
+INSTALLED_APPS = [
+    'frontend.apps.FrontendConfig',
+    ...
+]
+```
+Dentro de la carpeta _`frontend/`_ crearemos las subarpetas _`static/frontend`_ y _`templates/frontend`_:
+``` bash
+mkdir frontend/templates/
+mkdir frontend/templates/frontend/
+mkdir frontend/static/
+mkdir frontend/static/frontend/
+```
+>La carpeta _`frontend/template/frontend/`_ es la carpeta predeterminada de **`Django`** para los templates, y es donde ubicaremos nuestro _`index.html`_, que luego será el punto de partida de nuestra aplicacion **`React`**. La carpeta _`frontend/static/frontend/`_ es la carpeta predeterminada de **`Django`** para los archivos estaticos(imagenes, scripts, hojas de estilo).
+
+Creamos un archivo **`index.html`** en _`frontend/template/frontend/`_ y escribimos el siguiente código:
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>React Starter</title>
+</head>
+<body>
+  <h1>Hola Mundo!!!</h1>
+</body>
+</html>
+```
+Ahora crearemos una vista que usara el template **`index.html`** que acabamos de crear, para lograrlo abrimos el archivo _`frontend/views.py`_ y agregamos la siguiente funcion:
+``` Python
+from django.shortcuts import render
+
+def index(request):
+  return render(request, 'frontend/index.html')
+```
+El parametro  `'frontend/index.html'` en la funcion **`render`** hace referencia a _`frontend/template/frontend/index.html`_.
+
+Ahora debemos configurar las rutas de nuestra aplicacion, para eso creamos el archivo **`urls.py`** en la carpeta _`frontend/`_ y escribiremos el siguiente codigo:
+``` Python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+	path('', views.index, name='index'),
+]
+```
+Y ahora modificamos algunas lineas en el archivo **`urls.py`** de la carpeta _`project_start/`_, debe quedar asi:
+``` Python
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+	path('home/', include('frontend.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+En este punto puedes ejecutar **`python manage.py runserver`** y en tu navegador acceder a [http://localhost:8000/home/](http://localhost:8000/home/).
 # 2. Configuracion directorio `React`
 ## 2.1 Iniciando
 Accedemos a la carpeta _`frontend`_, que es el directorio donde trabajaremos con **`React`**:
