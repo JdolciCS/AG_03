@@ -299,7 +299,7 @@ Cree un archivo App.css en la carpeta src y escriba el siguiente codigo:
   font-family: Arial, Helvetica, sans-serif;
 }
 ```
-Finalmente modificamos el **`<body>`** en el archivo **`index.html`** que esta en  _`template/frontend/`_ de la siguente manera:
+Modificamos el **`<body>`** en el archivo **`index.html`** que esta en  _`template/frontend/`_ de la siguente manera:
 ``` html
 <body>
   <div id="root"></div>
@@ -307,3 +307,24 @@ Finalmente modificamos el **`<body>`** en el archivo **`index.html`** que esta e
   <script src="{% static "frontend/bundle.js" %}"></script>
 </body>
 ```
+Finalmente añadimos los scripts **`start`** y **`build`** en **`package.json`** de la siguiente manera:
+``` json
+{
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --watch --colors"
+  },
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
