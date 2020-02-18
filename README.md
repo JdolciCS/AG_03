@@ -316,7 +316,7 @@ Finalmente añadimos los scripts **`start`** y **`build`** en **`package.json`**
   },
 }
 ```
-
+Ahora ya puede ejecutar **`npm run build`** para compilar el proyecto react cada vez que se detecte un cambio. Tambien ejecute **`python manage.py runserver`** para correr el servidor de desarrollo de **Django**.
 
 
 
